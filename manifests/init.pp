@@ -6,7 +6,13 @@ class centreon_config (
   String $centreon_webapi_host    = 'http://localhost',
   String $centreon_webapi_port    = '80',
   String $centreon_admin_password = 'p4ssw0rd',
+  String $host_alias              = undef,
+  String $host_template           = undef,
+  String $host_pooler             = 'Central',
+  String $host_state              = 'enabled',
+  String $host_group              = undef,
   Hash   $configuration           = undef
+
 ) {
 
 
@@ -42,19 +48,23 @@ class centreon_config (
   # Create wrapper file
   file { '/tmp/wrapper.py':
     content => template('centreon/wrapper.py.erb'),
-    mode    => '0755',
+    mode    => '0700',
+    owner   => root,
+    group   => root,
     require => Package[$wrapper_packages],
   }
 
   # Create file config
   file { '/tmp/config.yml':
-    content => inline_template('<%= @configuration.to_yaml %>'),
-    mode    => '0644',
+    content => template('centreon/wrapper.py.erb'),
+    mode    => '0640',
+    owner   => root,
+    group   => root,
     require => File['/tmp/wrapper.py']
   }
 
   exec { 'Apply configuration using wrapper':
-    command => '/usr/bin/python3 /tmp/wrapper.py',
+    command => '/usr/bin/python /tmp/wrapper.py',
     require => [
       File['/tmp/wrapper.py'],
       File['/tmp/config.yml'],
