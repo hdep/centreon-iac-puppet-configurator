@@ -15,3 +15,6 @@ host:
           <% end -%>
           'state': '<%= @host_state %>' # enabled, disabled, absent
         }
+<%= if @configuration -%>
+<%= @configuration %>
+<% end -%>

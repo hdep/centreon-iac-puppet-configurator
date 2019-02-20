@@ -11,15 +11,9 @@ class centreon_config (
   String $host_pooler             = 'Central',
   String $host_state              = 'enabled',
   Optional String $host_group     = undef,
-  Hash   $configuration           = undef
+  Optional Hash   $configuration  = undef
 
 ) {
-
-
-  if $configuration == undef {
-    fail ('FATAL - You must set values in the variable *configuration*')
-  }
-
 
   case $::osfamily {
     'Debian': {
