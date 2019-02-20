@@ -2,10 +2,16 @@
 host:
        - {
           'name': '<%= @hostname %>',
+          <% if @host_alias -%>
           'alias': '<%= @host_alias %>',
+          <% else -%>
+          'alias': '<%= @hostname %>',
+          <% end -%>
           'address': '<%= @ipaddress %>',
           'template': '<%= @host_template %>',
           'instance': '<%= @host_pooler %>',
-          'hostgroup': '<%= @host_group %>',
+          <% if @host_group -%>
+           'hostgroup': '<%= @host_group %>',
+          <% end -%>
           'state': '<%= @host_state %>' # enabled, disabled, absent
         }
