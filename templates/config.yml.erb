@@ -1,0 +1,11 @@
+# File managed by puppet
+host:
+       - {
+          'name': '<%= @hostname %>',
+          'alias': '<%= @host_alias %>',
+          'address': '<%= @ipaddress %>',
+          'template': '<%= @host_template %>',
+          'instance': '<%= @host_pooler %>',
+          'hostgroup': '<%= @host_group %>',
+          'state': '<%= @host_state %>' # enabled, disabled, absent
+        }
