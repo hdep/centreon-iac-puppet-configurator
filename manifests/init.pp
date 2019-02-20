@@ -3,15 +3,15 @@
 #
 
 class centreon_config (
-  String $centreon_webapi_host    = 'http://localhost',
-  String $centreon_webapi_port    = '80',
-  String $centreon_admin_password = 'p4ssw0rd',
-  Optional String $host_alias     = undef,
-  String $host_template           = undef,
-  String $host_pooler             = 'Central',
-  String $host_state              = 'enabled',
-  Optional String $host_group     = undef,
-  Optional Hash   $configuration  = undef
+  String $centreon_webapi_host     = 'http://localhost',
+  String $centreon_webapi_port     = '80',
+  String $centreon_admin_password  = 'p4ssw0rd',
+  Optional[String] $host_alias     = undef,
+  String $host_template            = undef,
+  String $host_pooler              = 'Central',
+  String $host_state               = 'enabled',
+  Optional[String] $host_group     = undef,
+  Optional[Hash]   $configuration  = undef
 
 ) {
 
