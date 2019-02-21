@@ -21,6 +21,7 @@ class centreon_config (
         'python-requests',
         'python-yaml'
       ]
+      $python_path = '/usr/bin/python'
     }
     'RedHat': {
       $wrapper_packages = [
@@ -28,6 +29,7 @@ class centreon_config (
         'python34-requests',
         'python34-PyYAML'
       ]
+      $python_path = '/usr/bin/python3'
     }
     default: {
       fail ('$::osfamily is not supported')
@@ -58,7 +60,7 @@ class centreon_config (
   }
 
   exec { 'Apply configuration using wrapper':
-    command     => "/usr/bin/python3 $script_path/wrapper.py",
+    command     => "$python_path $script_path/wrapper.py",
     subscribe   => File["$script_path/config.yml"],
     refreshonly => true,
     require     => [
