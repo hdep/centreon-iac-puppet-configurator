@@ -40,7 +40,7 @@ class centreon_config (
   }
 
   # Create wrapper file
-  file { "${::script_path}/wrapper.py":
+  file { "$script_path/wrapper.py":
     content => template('centreon_config/wrapper.py.erb'),
     mode    => '0700',
     owner   => root,
@@ -49,21 +49,21 @@ class centreon_config (
   }
 
   # Create file config
-  file { "${::script_path}/config.yml":
+  file { "$script_path/config.yml":
     content => template('centreon_config/config.yml.erb'),
     mode    => '0640',
     owner   => root,
     group   => root,
-    require => File["${::script_path}/wrapper.py"]
+    require => File["$script_path/wrapper.py"]
   }
 
   exec { 'Apply configuration using wrapper':
     command     => '/usr/bin/python /tmp/wrapper.py',
-    subscribe   => File["${::script_path}/config.yml"],
+    subscribe   => File["$script_path/config.yml"],
     refreshonly => true,
     require     => [
-      File["${::script_path}/wrapper.py"],
-      File["${::script_path}/config.yml"],
+      File["$script_path/wrapper.py"],
+      File["$script_path/config.yml"],
       Package[$wrapper_packages]
     ]
   }
