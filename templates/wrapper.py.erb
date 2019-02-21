@@ -208,7 +208,7 @@ def apply_instances():
     return True
 
 
-with open('/tmp/config.yml') as _f:
+with open('<%= @script_path %>/config.yml') as _f:
     obj = yaml.load(_f.read())  # Parse yaml object
 for name in obj.keys():
 
