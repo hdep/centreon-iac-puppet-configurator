@@ -58,7 +58,7 @@ class centreon_config (
   }
 
   exec { 'Apply configuration using wrapper':
-    command     => '/usr/bin/python3 /tmp/wrapper.py',
+    command     => "/usr/bin/python3 $script_path/wrapper.py",
     subscribe   => File["$script_path/config.yml"],
     refreshonly => true,
     require     => [
