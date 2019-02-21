@@ -10,7 +10,7 @@ class centreon_config (
   String $host_template            = undef,
   String $host_pooler              = 'Central',
   String $host_state               = 'enabled',
-  Optional[String] $host_group     = undef,
+  Optional[String] $host_group     = '',
   Optional[Hash]   $configuration  = undef
 
 ) {

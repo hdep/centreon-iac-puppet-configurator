@@ -10,9 +10,7 @@ host:
           'address': '<%= @ipaddress %>',
           'template': '<%= @host_template %>',
           'instance': '<%= @host_pooler %>',
-          <% if @host_group -%>
-           'hostgroup': '<%= @host_group %>',
-          <% end -%>
+          'hostgroup': '<%= @host_group %>',
           'state': '<%= @host_state %>' # enabled, disabled, absent
         }
 <% if @configuration -%>
