@@ -41,7 +41,7 @@ class centreon_config (
 
   # Create wrapper file
   file { '/tmp/wrapper.py':
-    content => template('centreon/wrapper.py.erb'),
+    content => template('centreon_config/wrapper.py.erb'),
     mode    => '0700',
     owner   => root,
     group   => root,
@@ -50,7 +50,7 @@ class centreon_config (
 
   # Create file config
   file { '/tmp/config.yml':
-    content => template('centreon/wrapper.py.erb'),
+    content => template('centreon_config/wrapper.py.erb'),
     mode    => '0640',
     owner   => root,
     group   => root,
