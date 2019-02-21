@@ -58,8 +58,10 @@ class centreon_config (
   }
 
   exec { 'Apply configuration using wrapper':
-    command => '/usr/bin/python /tmp/wrapper.py',
-    require => [
+    command     => '/usr/bin/python /tmp/wrapper.py',
+    subscribe   => File['/tmp/config.yml'],
+    refreshonly => true,
+    require     => [
       File['/tmp/wrapper.py'],
       File['/tmp/config.yml'],
       Package[$wrapper_packages]
