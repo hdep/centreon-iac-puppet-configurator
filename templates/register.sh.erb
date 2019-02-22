@@ -24,11 +24,11 @@ CHECK_CENTREON=$(curl -s "${CENTREON_URL}/centreon/api/index.php?action=action&o
 -H "centreon-auth-token: $TOKEN" \
 --data '{"action":"show", "object":"host"}' | grep -q ${HOSTNAME};echo $?)
 
-#if [ $CHECK_CENTREON == 0 ];
-#then
-#   # host already present in centreon so we quit
-#   exit 0
-#fi
+if [ $CHECK_CENTREON == 0 ];
+then
+   # host already present in centreon so we quit
+   exit 0
+fi
 
 # ADD HOST
 curl -s "${CENTREON_URL}/centreon/api/index.php?action=action&object=centreon_clapi" \
