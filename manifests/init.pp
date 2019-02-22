@@ -19,7 +19,7 @@ class centreon_config (
 
 
   # install requirement for bash script
-  package { '$packages':
+  package { 'curl':
     ensure  => latest,
   }
 
