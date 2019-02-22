@@ -11,7 +11,6 @@ HOST_NAME=<%= @hostname %>
 MACRO_NAME=INTERFACE
 MACRO_VALUE=<%= @facts['networking']['primary'] %>
 
-
 # GET TOKEN
 TOKEN=$(curl -s \
 -d "username=${LOGIN}&password=${PASSWORD}" \
@@ -43,14 +42,12 @@ curl -s "${CENTREON_URL}/centreon/api/index.php?action=action&object=centreon_cl
 --data "{\"action\":\"applytpl\", \"object\":\"host\", \"values\":\""${HOST_NAME}"\"}"
 
 # SET MACRO
-
 curl -s "${CENTREON_URL}/centreon/api/index.php?action=action&object=centreon_clapi" \
 -H 'Content-Type: application/json' \
 -H "centreon-auth-token: $TOKEN" \
 --data "{\"action\":\"setmacro\", \"object\":\"host\", \"values\":\""${HOST_NAME}";"${MACRO_NAME}";"${MACRO_VALUE}";"${MACRO_PASSWORD}";"${MACRO_DESC}";\"}"
 
 # APPLY CONF
-
 curl -s "${CENTREON_URL}/centreon/api/index.php?action=action&object=centreon_clapi" \
 -H 'Content-Type: application/json' \
 -H "centreon-auth-token: $TOKEN" \
