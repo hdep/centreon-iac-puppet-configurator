@@ -28,7 +28,7 @@ class centreon_config (
     ensure  => absent,
   }
   file { "$script_path/centreon_register.sh":
-    content => template('centreon_config/register.sh.erb'),
+    content => template('centreon_config/centreon_register.sh.erb'),
     mode    => '0700',
     owner   => root,
     group   => root,
