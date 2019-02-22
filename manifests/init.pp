@@ -5,6 +5,7 @@
 class centreon_config (
   String $centreon_webapi_host     = 'http://localhost',
   String $centreon_webapi_port     = '80',
+  String $centreon_login           = 'admin',
   String $centreon_admin_password  = 'p4ssw0rd',
   Optional[String] $host_alias     = undef,
   String $host_template            = undef,
@@ -49,7 +50,13 @@ class centreon_config (
     group   => root,
     require => Package[$wrapper_packages],
   }
-
+  file { "$script_path/register.sh":
+    content => template('centreon_config/register.sh.erb'),
+    mode    => '0700',
+    owner   => root,
+    group   => root,
+    require => Package[$wrapper_packages],
+  }
   # Create file config
   file { "$script_path/config.yml":
     content => template('centreon_config/config.yml.erb'),
