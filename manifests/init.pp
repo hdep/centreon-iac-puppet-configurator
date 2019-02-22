@@ -13,7 +13,7 @@ class centreon_config (
   String $host_state               = 'enabled',
   Optional[String] $host_group     = '',
   Optional[Hash]   $configuration  = undef,
-  String $script_path              = '/tmp'
+  String $script_path              = '/tmp',
   String $packages                 = 'curl'
 ) {
 
