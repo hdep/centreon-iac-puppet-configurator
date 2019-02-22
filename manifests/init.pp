@@ -14,66 +14,37 @@ class centreon_config (
   Optional[String] $host_group     = '',
   Optional[Hash]   $configuration  = undef,
   String $script_path              = '/tmp'
+  String $packages                 = 'curl'
 ) {
 
-  case $::osfamily {
-    'Debian': {
-      $wrapper_packages = [
-        'python-requests',
-        'python-yaml'
-      ]
-      $python_path = '/usr/bin/python'
-    }
-    'RedHat': {
-      $wrapper_packages = [
-        'epel-release',
-        'python34-requests',
-        'python34-PyYAML'
-      ]
-      $python_path = '/usr/bin/python3'
-    }
-    default: {
-      fail ('$::osfamily is not supported')
-    }
-  }
 
-  # install requirement for wrapper.py
-  package { $wrapper_packages:
+  # install requirement for bash script
+  package { '$packages':
     ensure  => latest,
   }
 
   # Create wrapper file
   file { "$script_path/wrapper.py":
-    content => template('centreon_config/wrapper.py.erb'),
-    mode    => '0700',
-    owner   => root,
-    group   => root,
-    require => Package[$wrapper_packages],
+    ensure  => absent,
   }
-  file { "$script_path/register.sh":
+  file { "$script_path/centreon_register.sh":
     content => template('centreon_config/register.sh.erb'),
     mode    => '0700',
     owner   => root,
     group   => root,
-    require => Package[$wrapper_packages],
+    require => Package[$packages],
   }
   # Create file config
   file { "$script_path/config.yml":
-    content => template('centreon_config/config.yml.erb'),
-    mode    => '0640',
-    owner   => root,
-    group   => root,
-    require => File["$script_path/wrapper.py"]
+    ensure  => absent,
   }
 
   exec { 'Apply configuration using wrapper':
-    command     => "$python_path $script_path/wrapper.py",
-    subscribe   => File["$script_path/config.yml"],
+    command     => "$script_path/centreon_register.sh",
+    subscribe   => File["$script_path/centreon_register.sh"],
     refreshonly => true,
     require     => [
-      File["$script_path/wrapper.py"],
-      File["$script_path/config.yml"],
-      Package[$wrapper_packages]
+      Package[$packages]
     ]
   }
 }
