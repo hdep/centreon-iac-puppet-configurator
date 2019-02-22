@@ -9,7 +9,7 @@ HOST_TEMPLATE=<%= @host_template %>
 INSTANCE_NAME=<%= @host_pooler %>
 HOST_NAME=<%= @hostname %>
 MACRO_NAME=INTERFACE
-MACRO_VALUE=<%= @networking.primary %>
+MACRO_VALUE=<%= @facts['networking']['primary'] %>
 
 
 # GET TOKEN
