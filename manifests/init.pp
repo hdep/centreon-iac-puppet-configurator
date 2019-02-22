@@ -32,7 +32,7 @@ class centreon_config (
     mode    => '0700',
     owner   => root,
     group   => root,
-    require => Package["$packages"],
+    require => Package["curl"],
   }
   # Create file config
   file { "$script_path/config.yml":
